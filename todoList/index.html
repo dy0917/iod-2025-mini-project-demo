@@ -10,6 +10,25 @@
     />
   </head>
   <body>
+    <template id="rowTemplate">
+      <tr>
+        <th id="id"></th>
+        <td id="title"></td>
+        <td id="desc"></td>
+        <td id="createdAt"></td>
+        <td>
+          <button>Update</button> <button id="todoDel">Del</button>
+          <input
+            class="form-check-input mt-0"
+            id ="todoComplete"
+            type="checkbox"
+            value=""
+            aria-label="Checkbox for following text input"
+          />
+        </td>
+      </tr>
+    </template>
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -74,43 +93,23 @@
       <div class="row">
         <div class="col">
           <button type="button" class="btn btn-primary" onclick="modalClick()">
-            Launch demo modal
+            New
           </button>
         </div>
-     
       </div>
       <table class="table">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Title</th>
+            <th scope="col">Desc</th>
+            <th scope="col">CreatedAt</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
+        <tbody id="rowContainer"></tbody>
       </table>
     </div>
-
-    <del>This line of text is meant to be treated as deleted text.</del>
 
     <div
       class="modal fade"
@@ -122,7 +121,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Todo</h1>
             <button
               type="button"
               class="btn-close"
@@ -130,7 +129,18 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">...</div>
+          <div class="modal-body">
+            <form id="todoForm">
+              <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="formTitle" />
+              </div>
+              <div class="mb-3">
+                <label for="desc" class="form-label">Description</label>
+                <input type="text" class="form-control" id="fromDesc" />
+              </div>
+            </form>
+          </div>
           <div class="modal-footer">
             <button
               type="button"
@@ -139,7 +149,9 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" onclick="modalSave()">
+              Save
+            </button>
           </div>
         </div>
       </div>
