@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eCharts</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.1/dist/echarts.min.js"></script>
+  </head>
+  <body>
+    <!-- Prepare a DOM with a defined width and height for ECharts -->
+    <div id="main" style="width: 900px; height: 600px"></div>
+    <script type="text/javascript">
+      // Specify the configuration items and data for the chart
+      let options = {
+        title: { text: "Fake Store Categories" },
+        xAxis: {
+          data: ["men's clothing", "jewelery", "Category 3", "Category 4"],
+        },
+        yAxis: {},
+        series: [
+          {
+            name: "# products",
+            type: "line",
+            data: [0, 500, 5, 2],
+          },
+        ],
+      };
+      fetch("https://fakestoreapi.com/products")
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+          const menClothings = json.filter(
+            (prod) => prod.category === "men's clothing"
+          );
+          let totalSale = 0;
+          let jeweleryTotal = 0;
+          menClothings.forEach((clothing) => {
+            totalSale += clothing.price;
+          });
+          const jewelery = json.filter((prod) => prod.category === "jewelery");
+
+          jewelery.forEach((item) => {
+            jeweleryTotal += item.price;
+          });
+
+          console.log(totalSale);
+          console.log(options.series);
+          options.series[0].data[0] = totalSale;
+          options.series[0].data[1] = jeweleryTotal;
+          // use this JSON to find and set correct option data for the chart
+        })
+        .then(() => {
+          // Display the chart
+          myChart.setOption(options);
+        });
+      // Initialise the echarts instance based on the prepared div
+      let myChart = echarts.init(document.getElementById("main"));
+    </script>
+  </body>
+</html>
