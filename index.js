@@ -1,10 +1,4 @@
-// function modalClick() {
-//   console.log("click");
-//   const myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
-//   setTimeout(() => {
-//     myModal.toggle();
-//   }, 1000);
-// }
+
 let salaries = {
   Timothy: 35000,
   David: 25000,

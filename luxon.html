@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <title>Luxon DateTime Formatting</title>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.5.0/build/global/luxon.min.js"></script>
+    <!-- reference Luxon library -->
+  </head>
+  <body>
+    <h2>Luxon Date</h2>
+    <!-- container for Luxon output -->
+    <div id="displayLuxon"></div>
+    <script type="text/javascript">
+      (function () {
+        // create a shortcut and a new Luxon date
+        const DateTime = luxon.DateTime;
+        let nowLuxon = DateTime.now();
+        let eDisplayLuxon = document.getElementById("displayLuxon");
+        eDisplayLuxon.innerHTML = `<p>Unformatted date: ${nowLuxon}</p>`;
+        let formatted = nowLuxon.toFormat("MMMM dd, yyyy");
+        eDisplayLuxon.innerHTML += `<p>Formatted date: ${formatted}</p>`;
+        let newYork = nowLuxon
+          .setZone("America/New_York")
+          .toLocaleString(DateTime.DATETIME_FULFL);
+        eDisplayLuxon.innerHTML += `<p>New York date: ${newYork}</p>`;
+      })();
+
+      const date1 = luxon.DateTime.fromISO("2020-09-06T12:00");
+      const date2 = luxon.DateTime.fromISO("2019-06-10T14:00");
+
+      const diff = date1.diff(date2, ["years", "months", "days", "hours"]); // without given values, years/days/months attribute will return 0
+
+      console.log(diff.toObject(), diff.years, diff.months);
+
+      const diff2 = date1.diff(date2, ["days"]);
+      console.log(diff2.days);
+
+      // is between two dates
+      const Interval = luxon.Interval;
+      const DateTime = luxon.DateTime;
+      const interval = Interval.fromDateTimes(
+        DateTime.local(2023, 1, 1),
+        DateTime.local(2023, 3, 31)
+      );
+      let dateTimeToCheck = DateTime.now();
+      console.log(interval.contains(dateTimeToCheck));
+
+      console.log(interval.contains(DateTime.local(2023, 2, 1)));
+    </script>
+  </body>
+</html>
